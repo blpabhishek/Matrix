@@ -23,7 +23,7 @@ public class Matrix{
   public void init(int[] elements){
     int k = 0;
     for (int i=0;i<this.row;i++) {
-      for (int j=0;j<this.col ;j++) {
+      for (int j=0;j<this.col && k < elements.length;j++) {
         this.elements[i][j] = elements[k++];
       }
     }
@@ -48,22 +48,32 @@ public class Matrix{
   public boolean isEqual(Matrix matrix){
     return Arrays.deepEquals(matrix.elements,this.elements);
   }
-  public int getDeterminant(){
-    return 1;
+  private boolean isSquareMatrix(){
+    return (row==col);
+  }
+  private int twoOrder(){
+    int first = elements[0][0]*elements[1][1];
+    int second = elements[1][0]*elements[0][1];
+    return first-second;
+  }
+  public double getDeterminant(){
+    if(!isSquareMatrix())
+        return Double.POSITIVE_INFINITY;
+    return (double)twoOrder();
   }
   private boolean canBeMultipliedWith(Matrix matrix){
     return (this.col == matrix.row);
   }
   public Matrix multiply(Matrix matrix){
-    Matrix resultMatrix = new Matrix(row,col);
+    Matrix resultMatrix = new Matrix(this.row,matrix.col);
     int[] result = new int[this.row*matrix.col];
     if(!canBeMultipliedWith(matrix))
       return new Matrix(0,0);
     int l =0;
     for (int i=0;i< this.row;i++){
-      for (int j=0;j< this.col ;j++) {
+      for (int j=0;j< matrix.col ;j++) {
           int sum = 0;
-        for (int k = 0; k<matrix.col;k++) {
+        for (int k = 0; k< matrix.row;k++){
           sum=this.elements[i][k]*matrix.elements[k][j]+sum;
         }
           result[l++] = sum;

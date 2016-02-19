@@ -62,6 +62,22 @@ public class MatrixTest{
    assertTrue(actual.isEqual(expected));
   }
   @Test
+  public void multiplyShouldMultiplyTheMatricesAndReturnNewMatrixOfDifferentOrders() {
+   int [] expectedResult = {6,27,5,22};
+   Matrix expected =new Matrix(2,2);
+   expected.init(expectedResult);
+
+   Matrix matrix1 = new Matrix(2,3);
+   int [] elements1 = {2,1,4,5,2,1};
+   matrix1.init(elements1);
+
+   Matrix matrix2 = new Matrix(3,2);
+   int [] elements2 = {0,3,2,1,1,5};
+   matrix2.init(elements2);
+   Matrix actual = matrix1.multiply(matrix2);
+   assertTrue(actual.isEqual(expected));
+  }
+  @Test
   public void multiplyShouldReturnNullMatrixIfTheyCanNotBeMultiplied() {
    Matrix expected =new Matrix(0,0);
 
@@ -75,5 +91,19 @@ public class MatrixTest{
 
    Matrix actual= matrix1.multiply(matrix2);
    assertTrue(actual.isEqual(expected));
+  }
+  @Test
+  public void getDeterminantShouldReturnInfiniteWhenNotPossible(){
+    Matrix matrix = new Matrix(2,1);
+    int [] elements = {2,3,2,5};
+    matrix.init(elements);
+    assertTrue(Double.isInfinite(matrix.getDeterminant()));
+  }
+  @Test
+  public void getDeterminantShouldReturnAnRepresentationOfMatrix(){
+    Matrix matrix = new Matrix(2,2);
+    int [] elements = {2,3,2,5};
+    matrix.init(elements);
+    assertEquals(4,matrix.getDeterminant(),0.0);
   }
 }
