@@ -119,4 +119,11 @@ public class MatrixTest{
     matrix.init(elements);
     assertEquals(20,matrix.getDeterminant(),0.0);
   }
+  @Test
+  public void getDeterminantShouldReturnAnRepresentationOf5thOrderMatrix(){
+    Matrix matrix = new Matrix(5,5);
+    int [] elements = {1,3,2,5,1,3,9,2,1,4,4,2,5,6,2,2,1,3,1,2,5,6,2,1,3};
+    matrix.init(elements);
+    assertEquals(93,matrix.getDeterminant(),0.0);
+  }
 }
