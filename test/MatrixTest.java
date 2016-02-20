@@ -1,4 +1,3 @@
-
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -10,7 +9,7 @@ public class MatrixTest{
    Matrix matrix = new Matrix(3,3);
    int [] elements = {2,3,4,5,6,7,8,9,1};
    matrix.init(elements);
-   assertTrue(matrix.isEqual(matrix));
+   assertEquals(matrix,matrix);
   }
   @Test
   public void addShouldAddTheMatricesAndReturnNewMatrix() {
@@ -27,7 +26,7 @@ public class MatrixTest{
    matrix2.init(elements2);
 
    Matrix actual= matrix1.add(matrix2);
-   assertTrue(actual.isEqual(expected));
+   assertEquals(expected,actual);
   }
   @Test
   public void addShouldReturnNullMatrixIfTheyCanNotBeAdded() {
@@ -42,7 +41,7 @@ public class MatrixTest{
    matrix2.init(elements2);
 
    Matrix addition= matrix1.add(matrix2);
-   assertTrue(addition.isEqual(expected));
+   assertEquals(expected,addition);
   }
   @Test
   public void multiplyShouldMultiplyTheMatricesAndReturnNewMatrix() {
@@ -59,7 +58,7 @@ public class MatrixTest{
    matrix2.init(elements2);
 
    Matrix actual= matrix1.multiply(matrix2);
-   assertTrue(actual.isEqual(expected));
+   assertEquals(expected,actual);
   }
   @Test
   public void multiplyShouldMultiplyTheMatricesAndReturnNewMatrixOfDifferentOrders() {
@@ -75,7 +74,7 @@ public class MatrixTest{
    int [] elements2 = {0,3,2,1,1,5};
    matrix2.init(elements2);
    Matrix actual = matrix1.multiply(matrix2);
-   assertTrue(actual.isEqual(expected));
+   assertEquals(expected,actual);
   }
   @Test
   public void multiplyShouldReturnNullMatrixIfTheyCanNotBeMultiplied() {
@@ -90,7 +89,7 @@ public class MatrixTest{
    matrix2.init(elements2);
 
    Matrix actual= matrix1.multiply(matrix2);
-   assertTrue(actual.isEqual(expected));
+   assertEquals(expected,actual);
   }
   @Test
   public void getDeterminantShouldReturnInfiniteWhenNotPossible(){
