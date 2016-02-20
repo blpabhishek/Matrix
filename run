@@ -1,0 +1,1 @@
+bash ./build/compile && bash ./build/runTest
