@@ -26,7 +26,7 @@ public class Matrix{
   private boolean isSquareMatrix(){
     return (row==col);
   }
-  private int twoOrder(){
+  private int determinantOfSecondOrder(){
     int first = elements[0][0]*elements[1][1];
     int second = elements[1][0]*elements[0][1];
     return first-second;
@@ -41,7 +41,7 @@ public class Matrix{
       return new Matrix(0,0);
     int k = 0;
     for (int i=0;i<this.row;i++) {
-      for (int j=0;j<this.col ;j++) {
+      for (int j=0;j<this.col;j++) {
         result[k++]=this.elements[i][j]+addended.elements[i][j];
       }
     }
@@ -66,19 +66,51 @@ public class Matrix{
     resultMatrix.init(result);
     return resultMatrix;
   }
+  private boolean isSecondOrder(Matrix matrix){
+    return (matrix.col ==2 || matrix.row ==2);
+  }
   public double getDeterminant(){
     if(!isSquareMatrix())
         return Double.POSITIVE_INFINITY;
-    return (double)twoOrder();
+    if(isSecondOrder(this))
+      return (double)determinantOfSecondOrder();
+    return (double)calculateDeterminant(this);
   }
+  private int calculateDeterminant(Matrix matrix){
+    int result = 0;
+    for (int i=0;i<matrix.col;i++) {
+      int temp = matrix.elements[0][i];
+      if(i%2==1)  temp*=-1;
+      Matrix cofactor = getCofactor(matrix,0,i);
+      if(isSecondOrder(cofactor)){
+        int answer = cofactor.determinantOfSecondOrder();
+        temp*=answer;
+      }
+      result+=temp;
+    }
+    return result;
+  }
+  private Matrix getCofactor(Matrix matrix,int rowSkip,int colSkip){
+    Matrix cofacor = new Matrix(matrix.row-1,matrix.col-1);
+    int []elements = new int[(matrix.row-1)*(matrix.col-1)];
+    int k = 0;
+    for (int i =0 ;i < matrix.row;i++) {
+        for (int j=0;j<matrix.col;j++) {
+              if( i!=rowSkip && j!=colSkip )
+                elements[k++]=matrix.elements[i][j];
+           }   
+    }
+    cofacor.init(elements);
+    return cofacor;
+  };
   @Override
   public String toString(){
     String output="";
     for (int i=0;i<this.row;i++) {
       for (int j=0;j<this.col;j++) {
-        output = output+ this.elements[i][j]+" ";
+        output += this.elements[i][j]+" ";
       }
-      output = output +" \n";
+      output +="\n";
     }
     return output;
   }
