@@ -77,18 +77,20 @@ public class Matrix{
     return (double)calculateDeterminant(this);
   }
   private int calculateDeterminant(Matrix matrix){
-    int result = 0;
+    int determinant = 0;
     for (int i=0;i<matrix.col;i++) {
-      int temp = matrix.elements[0][i];
-      if(i%2==1)  temp*=-1;
+      int result = matrix.elements[0][i];
+      if(i%2==1)  result*=-1;
       Matrix cofactor = getCofactor(matrix,0,i);
       if(isSecondOrder(cofactor)){
         int answer = cofactor.determinantOfSecondOrder();
-        temp*=answer;
+        result *=answer;
+      }else{
+      result *=calculateDeterminant(cofactor);
       }
-      result+=temp;
+      determinant+=result;
     }
-    return result;
+    return determinant;
   }
   private Matrix getCofactor(Matrix matrix,int rowSkip,int colSkip){
     Matrix cofacor = new Matrix(matrix.row-1,matrix.col-1);

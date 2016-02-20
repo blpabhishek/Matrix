@@ -112,11 +112,11 @@ public class MatrixTest{
     matrix.init(elements);
     assertEquals(-2,matrix.getDeterminant(),0.0);
   }
-  // @Test
-  // public void getDeterminantShouldReturnAnRepresentationOf4thOrderMatrix(){
-  //   Matrix matrix = new Matrix(4,4);
-  //   int [] elements = {3,0,2,-1,1,2,0,-2,4,0,6,-3,5,0,2,0};
-  //   matrix.init(elements);
-  //   assertEquals(20,matrix.getDeterminant(),0.0);
-  // }
+  @Test
+  public void getDeterminantShouldReturnAnRepresentationOf4thOrderMatrix(){
+    Matrix matrix = new Matrix(4,4);
+    int [] elements = {3,0,2,-1,1,2,0,-2,4,0,6,-3,5,0,2,0};
+    matrix.init(elements);
+    assertEquals(20,matrix.getDeterminant(),0.0);
+  }
 }
